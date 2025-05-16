@@ -1,10 +1,14 @@
 import React, {useState} from "react";
 
-function Track(){
+function Track({info}){
+    console.log(info);
+    const {id, name, artist, album} = info;
     return(
-        <>
-        <p>Track</p>
-        </>
+        <li>
+        <h1>{name}</h1>
+        <h2>{artist}</h2>
+        <h3>{album}</h3>
+        </li>
     )
 }
 

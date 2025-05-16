@@ -17,11 +17,11 @@ function App() {
     let code = urlParams.get('code');
     if (code){
       // Remove code from URL
-      window.history.replaceState({}, document.title, window.location.pathname)
+      window.history.replaceState({}, document.title, window.location.pathname);
       // Request token
       (async () => {
         await getToken(code);
-      })
+      })();
     }
   },[])
 

@@ -52,7 +52,7 @@ export async function startSpotifyAuth() {
   window.location.href = authUrl.toString();
 }
 
-// Rquest Access Token
+// Request Access Token
 export async function getToken(code) {
   const codeVerifier = window.localStorage.getItem('code_verifier');
 
@@ -76,3 +76,39 @@ export async function getToken(code) {
 
   localStorage.setItem('access_token', response.access_token);
 }
+
+// Format track 
+function formatTracks(jsonResponse){
+  if (!jsonResponse.tracks || !jsonResponse.tracks.items) return[]
+
+  return jsonResponse.tracks.items.map((track)=>{
+    const artists = track.artists.map(artist => artist.name).join(" , ");
+    return({
+      id: track.id,
+      name: track.name,
+      artist: artists,
+      album: track.album.name,
+    })
+  })
+}
+
+// Search for tracks
+export async function searchTrack(query, token) {
+  query = encodeURI(query);
+  const url = "https://api.spotify.com/v1/search?";
+  const queryParams = `q=${query}&type=track&limit=5`;
+  const endpoint = url + queryParams;
+  const headers = {
+    Authorization: `Bearer ${token}`
+  }
+  try {
+    const response = await fetch(endpoint, {headers})
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return formatTracks(jsonResponse);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+

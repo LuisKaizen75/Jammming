@@ -1,13 +1,23 @@
 import React, {useState} from "react";
 import Track from "./Track"
 
-function Tracklist(){
-    return(
+function Tracklist(props){
+    let tracks = []
+    if (props.tracks){
+        tracks = props.tracks
+        return(
         <>
         <p>Tracklist</p>
-        <Track/>
+        <ol>{tracks.map(track => <Track key={track.id} info={track}/>)}</ol>
         </>
-    )
+        )
+    } else {
+        return(
+        <>
+        <p>Tracklist</p>
+        </>
+        )
+    }
 }
 
 export default Tracklist
