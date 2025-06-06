@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import Tracklist from './Tracklist'
 
-function Playlist({tracks}) {
+function Playlist({tracks, removeItem}) {
     return(
         <>
         <p>Playlist</p>
-        <Tracklist tracks={tracks} button={false}/>
+        <Tracklist tracks={tracks} button={false} removeItem={removeItem}/>
         </>
     )
 }

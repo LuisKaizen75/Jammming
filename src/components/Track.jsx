@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function Track({info, button, updatePlaylistItems}){
+function Track({info, button, updatePlaylistItems, removeItem}){
     //console.log(info);
    
     const {id, name, artist, album} = info;
@@ -19,6 +19,7 @@ function Track({info, button, updatePlaylistItems}){
         <h1>{name}</h1>
         <h2>{artist}</h2>
         <h3>{album}</h3>
+        <button onClick={()=>{removeItem(id)}}>-</button>
         </li>
         )
     }

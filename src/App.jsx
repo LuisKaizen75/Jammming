@@ -41,6 +41,11 @@ function App() {
     });
   }
 
+  function removeItem(id){
+    console.log('hola')
+    setPlaylistItems((prev) => { return prev.filter(i => i.id !== id)});
+  }
+
   return (
     <>
       <h1>Spotify Jammming</h1>
@@ -49,7 +54,7 @@ function App() {
       <SearchResults query={query} updatePlaylistItems={updatePlaylistItems}/>
       <label htmlFor="title"></label>
       <input name='title' id='title' type='text' placeholder='Playlist title'/>
-      <Playlist tracks={playlistItems}/>
+      <Playlist tracks={playlistItems} removeItem={removeItem}/>
       <button>Save Playlist</button>
     </>
   )
