@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import Tracklist from './Tracklist'
 
-function Playlist() {
-
+function Playlist({tracks}) {
     return(
         <>
         <p>Playlist</p>
-        <Tracklist/>
+        <Tracklist tracks={tracks} button={false}/>
         </>
     )
 }

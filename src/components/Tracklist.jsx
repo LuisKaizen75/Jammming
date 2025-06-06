@@ -8,7 +8,7 @@ function Tracklist(props){
         return(
         <>
         <p>Tracklist</p>
-        <ol>{tracks.map(track => <Track key={track.id} info={track}/>)}</ol>
+        <ol>{tracks.map(track => <Track key={track.id} info={track} button={props.button} updatePlaylistItems={props.updatePlaylistItems}/>)}</ol>
         </>
         )
     } else {

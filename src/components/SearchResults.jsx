@@ -18,7 +18,7 @@ function SearchResults(props){
     return(
         <>
         <p>Your query is: {query}</p>
-        <Tracklist tracks={tracks}/>
+        <Tracklist tracks={tracks} button={true} updatePlaylistItems={props.updatePlaylistItems}/>
         </>
     )
 }

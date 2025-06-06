@@ -10,7 +10,7 @@ import { getToken } from './api/spotify'
 
 function App() {
   const [query, setQuery] = useState("")
-  const [results, setResults] = useState({})
+  const [playlistItems, setPlaylistItems] = useState([])
 
   useEffect(()=>{
     const urlParams = new URLSearchParams(window.location.search);
@@ -25,13 +25,32 @@ function App() {
     }
   },[])
 
+  function updatePlaylistItems(id, name, artist, album){
+    console.log('Hola')
+    console.log(id)
+    
+    const track = {
+      id: id,
+      name: name,
+      artist: artist,
+      album: album
+    }
+    
+    setPlaylistItems((prev) => {
+       return[track, ...prev]
+    });
+  }
+
   return (
     <>
       <h1>Spotify Jammming</h1>
       <SpotifyAuthButton/>
       <SearchBar setQuery={setQuery}/>
-      <SearchResults query={query}/>
-      <Playlist/>
+      <SearchResults query={query} updatePlaylistItems={updatePlaylistItems}/>
+      <label htmlFor="title"></label>
+      <input name='title' id='title' type='text' placeholder='Playlist title'/>
+      <Playlist tracks={playlistItems}/>
+      <button>Save Playlist</button>
     </>
   )
 }
