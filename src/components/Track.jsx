@@ -7,18 +7,18 @@ function Track({info, button, updatePlaylistItems, removeItem}){
     if (button) {
         return(
         <li>
-        <h1>{name}</h1>
-        <h2>{artist}</h2>
-        <h3>{album}</h3>
+        <h2>{name}</h2>
+        <h3>{artist}</h3>
+        <h4>{album}</h4>
         <button onClick={()=>{updatePlaylistItems(id, name, artist, album)}}>+</button>
         </li>
         )
     } else{
         return(
         <li>
-        <h1>{name}</h1>
-        <h2>{artist}</h2>
-        <h3>{album}</h3>
+        <h2>{name}</h2>
+        <h3>{artist}</h3>
+        <h4>{album}</h4>
         <button onClick={()=>{removeItem(id)}}>-</button>
         </li>
         )
