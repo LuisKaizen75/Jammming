@@ -6,11 +6,12 @@ import Playlist from './components/Playlist'
 import SearchBar from './components/SearchBar'
 import SearchResults from './components/SearchResults'
 import SpotifyAuthButton from './components/SpotifyAuthButton'
-import { getToken } from './api/spotify'
+import { getToken, savePlaylist } from './api/spotify'
 
 function App() {
-  const [query, setQuery] = useState("")
-  const [playlistItems, setPlaylistItems] = useState([])
+  const [query, setQuery] = useState("");
+  const [playlistItems, setPlaylistItems] = useState([]);
+  const [playlistName, setPlaylistName] = useState("");
 
   useEffect(()=>{
     const urlParams = new URLSearchParams(window.location.search);
@@ -25,10 +26,7 @@ function App() {
     }
   },[])
 
-  function updatePlaylistItems(id, name, artist, album){
-    console.log('Hola')
-    console.log(id)
-    
+  function updatePlaylistItems(id, name, artist, album){    
     const track = {
       id: id,
       name: name,
@@ -42,7 +40,6 @@ function App() {
   }
 
   function removeItem(id){
-    console.log('hola')
     setPlaylistItems((prev) => { return prev.filter(i => i.id !== id)});
   }
 
@@ -53,9 +50,12 @@ function App() {
       <SearchBar setQuery={setQuery}/>
       <SearchResults query={query} updatePlaylistItems={updatePlaylistItems}/>
       <label htmlFor="title"></label>
-      <input name='title' id='title' type='text' placeholder='Playlist title'/>
+      <input name='title' id='title' type='text' placeholder='Playlist title' onChange={({target})=>setPlaylistName(target.value)}/>
       <Playlist tracks={playlistItems} removeItem={removeItem}/>
-      <button>Save Playlist</button>
+      <button onClick={()=>{savePlaylist(playlistName, playlistItems);
+        setPlaylistItems([]);
+        setPlaylistName("");
+      }}>Save Playlist</button>
     </>
   )
 }

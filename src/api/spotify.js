@@ -34,7 +34,7 @@ export async function startSpotifyAuth() {
   console.log('codeChallenge',codeChallenge);
 
   // Request user authorization
-  const scope = 'user-read-private user-read-email';
+  const scope = 'playlist-modify-private';
   const authUrl = new URL("https://accounts.spotify.com/authorize")
 
   window.localStorage.setItem('code_verifier', codeVerifier);
@@ -112,3 +112,75 @@ export async function searchTrack(query, token) {
   }
 }
 
+// Create and save playlist
+export async function getUserId() {
+  const token = localStorage.getItem('access_token');
+  const url = "https://api.spotify.com/v1/me";
+  const headers = {
+    Authorization: `Bearer ${token}`
+  }
+
+  try {
+    const response = await fetch(url, {headers})
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse.id
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function createPlaylist(playlistName) {
+  const token = localStorage.getItem('access_token');
+  const userId = await getUserId();
+  const url = `https://api.spotify.com/v1/users/${userId}/playlists`;
+  const data = JSON.stringify({name: playlistName, description: 'Created with the Jamming App', public: false});
+  const headers = {
+   Authorization: `Bearer ${token}`,
+   'Content-Type': 'application/json'
+  }
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body: data,
+      headers: headers})
+
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse.id // Playlist id
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addSongsToPlaylist(playlistId, songs) {
+  const token = localStorage.getItem('access_token');
+  const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
+  const songsIds = songs.map(song => `spotify:track:${song.id}`);
+  const data = JSON.stringify({uris:songsIds});
+  const headers = {
+   Authorization: `Bearer ${token}`,
+   'Content-Type': 'application/json'
+  }
+  console.log(data)
+  try {
+    const response = await fetch(url,{
+      method: "POST",
+      body: data,
+      headers: headers
+    })
+
+    if (response.ok) {
+      console.log("Lista creada")
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function savePlaylist(playlistName, playlistItems) {
+  const playlistId = await createPlaylist(playlistName);
+  addSongsToPlaylist(playlistId, playlistItems);
+}
