@@ -6,20 +6,24 @@ function Track({info, button, updatePlaylistItems, removeItem}){
     const {id, name, artist, album} = info;
     if (button) {
         return(
-        <li>
-        <h2>{name}</h2>
-        <h3>{artist}</h3>
-        <h4>{album}</h4>
-        <button onClick={()=>{updatePlaylistItems(id, name, artist, album)}}>+</button>
+        <li className="song">
+        <div className="song-header">
+            <h2>Title: {name}</h2>
+            <button onClick={()=>{updatePlaylistItems(id, name, artist, album)}} className="add-button">+</button>
+        </div>
+            <h3>Artist: {artist}</h3>
+            <h4>Album: {album}</h4>
         </li>
         )
     } else{
         return(
-        <li>
-        <h2>{name}</h2>
-        <h3>{artist}</h3>
-        <h4>{album}</h4>
-        <button onClick={()=>{removeItem(id)}}>-</button>
+        <li className="song">
+            <div className="song-header">
+                <h2>Title: {name}</h2>
+                <button onClick={()=>{removeItem(id)}} className="minus-button">-</button>
+            </div>
+            <h3>Artist: {artist}</h3>
+            <h4>Album: {album}</h4>
         </li>
         )
     }

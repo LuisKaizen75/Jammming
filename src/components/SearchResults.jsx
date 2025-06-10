@@ -17,7 +17,7 @@ function SearchResults(props){
     
     return(
         <>
-        <p>Your query is: {query}</p>
+        <h3>Results for: '{query}'</h3>
         <Tracklist tracks={tracks} button={true} updatePlaylistItems={props.updatePlaylistItems}/>
         </>
     )

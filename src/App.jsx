@@ -35,7 +35,7 @@ function App() {
     }
     
     setPlaylistItems((prev) => {
-       return[track, ...prev]
+       return[...prev, track]
     });
   }
 
@@ -45,17 +45,26 @@ function App() {
 
   return (
     <>
-      <h1>Spotify Jammming</h1>
-      <SpotifyAuthButton/>
+      <div className='header-container'>
+        <h1>Spotify Jammming</h1>
+        <SpotifyAuthButton/>
+      </div>
       <SearchBar setQuery={setQuery}/>
-      <SearchResults query={query} updatePlaylistItems={updatePlaylistItems}/>
-      <label htmlFor="title"></label>
-      <input name='title' id='title' type='text' placeholder='Playlist title' onChange={({target})=>setPlaylistName(target.value)}/>
-      <Playlist tracks={playlistItems} removeItem={removeItem}/>
-      <button onClick={()=>{savePlaylist(playlistName, playlistItems);
-        setPlaylistItems([]);
-        setPlaylistName("");
-      }}>Save Playlist</button>
+      <div className='two-columns'>
+        <div className='songs-container' id='left-container'>
+          <SearchResults query={query} updatePlaylistItems={updatePlaylistItems}/>
+        </div>
+      <div className='songs-container' id='right-container'>
+        <h3>Playlist</h3>
+        <input name='title' id='title' type='text' placeholder='Playlist title' onChange={({target})=>setPlaylistName(target.value)}/>
+        <button onClick={()=>{savePlaylist(playlistName, playlistItems);
+          setPlaylistItems([]);
+          setPlaylistName("");
+        }}>Save Playlist</button>  
+        <Playlist tracks={playlistItems} removeItem={removeItem}/>
+      </div>
+      </div>
+      
     </>
   )
 }

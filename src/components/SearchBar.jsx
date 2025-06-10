@@ -12,7 +12,7 @@ function SearchBar({setQuery}){
     return(
         <>
         <form onSubmit={handleSubmit}>
-            <label htmlFor="song">Song</label>
+            <h2>Look for a song</h2>
             <input type="text" name='song' id='song' value={value} placeholder='Song title'onChange={({target})=>setValue(target.value)}/>
             <button type="submit">Search</button>
         </form>
