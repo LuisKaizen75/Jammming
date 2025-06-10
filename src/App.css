@@ -101,12 +101,13 @@ button{
 }
 
 .song {
-    background: #181818;
     border-radius: 18px;
     padding: 18px 24px;
     margin: 12px 0;
     list-style: none;
-    color: #fff;
+    border-color: rgb(177, 177, 177);
+    border-style: solid;
+    border-width: 3px;
 }
 
 .song-header h2 {
@@ -126,7 +127,7 @@ button{
     font-size: 1.1rem;
     font-weight: 500;
     margin: 4px 0 0 0;
-    color: #fff;
+    color: black;
     opacity: 0.85;
     text-decoration: none;
 }
@@ -135,7 +136,7 @@ button{
     font-size: 1rem;
     font-weight: 400;
     margin: 2px 0 0 0;
-    color: #b3b3b3;
+    color: #646262;
     font-style: italic;
 }
 
