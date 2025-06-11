@@ -1,5 +1,5 @@
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const redirectUri = 'http://127.0.0.1:5173';
+const redirectUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
 
 // Generate user Authorization Code
 export async function startSpotifyAuth() {
@@ -38,7 +38,6 @@ export async function startSpotifyAuth() {
   const authUrl = new URL("https://accounts.spotify.com/authorize")
 
   window.localStorage.setItem('code_verifier', codeVerifier);
-
   const params =  {
     response_type: 'code',
     client_id: clientId,
