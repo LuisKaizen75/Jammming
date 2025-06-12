@@ -1,5 +1,5 @@
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const redirectUri = window.location.origin;
+const redirectUri = window.location.origin + '/jammming';
 
 // Generate user Authorization Code
 export async function startSpotifyAuth() {
