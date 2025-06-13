@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - main
+      - ci-workflow-update
 
 jobs:
-  build-and-deploy:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -28,7 +29,12 @@ jobs:
 
       - name: Build
         run: npm run build
-
+  
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
